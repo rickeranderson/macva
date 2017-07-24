@@ -1,0 +1,13 @@
+.button {
+    margin: 10px;
+}
+
+.character-row {
+    background-color: #CCCCCC;
+}
+
+#loader {
+    margin: auto;
+    height: 75px;
+    width: 75px;
+}

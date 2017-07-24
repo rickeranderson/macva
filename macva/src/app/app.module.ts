@@ -7,7 +7,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MdButtonModule,
     MdCheckboxModule,
-    MdTableModule
+    MdTableModule,
+    MdGridListModule, MdListModule, MdProgressSpinnerModule
 } from '@angular/material';
 import { CharactersComponent } from './components/characters/characters.component';
 import { DataService } from './services/data.service';
@@ -23,7 +24,10 @@ import { DataService } from './services/data.service';
         MdButtonModule,
         MdCheckboxModule,
         MdTableModule,
-        HttpModule
+        HttpModule,
+        MdGridListModule,
+        MdListModule,
+        MdProgressSpinnerModule
     ],
     providers: [DataService],
     bootstrap: [AppComponent]
