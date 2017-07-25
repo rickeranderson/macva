@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
- @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @font-face {
     font-family: BentonSans;
@@ -12,7 +11,7 @@
 /*#518cca	(81,140,202) blue*/
 /*#f78f3f	(247,143,63) orange*/
 
-body{
+body {
     margin: 0px;
     background-color: #f1edec;
 }
@@ -25,6 +24,7 @@ body{
     padding-top: 10px;
     padding-bottom: 2px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 #footer {
