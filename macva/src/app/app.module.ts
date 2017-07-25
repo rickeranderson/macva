@@ -16,11 +16,11 @@ import {
     MdCardModule,
     MdInputModule,
     MdIconModule,
-    MdTabsModule
+    MdTabsModule,
+    MdSelectModule
 } from '@angular/material';
 import {CharactersComponent} from './components/characters/characters.component';
 import {DataService} from './services/data.service';
-import {DetailComponent} from './components/detail/detail.component';
 
 const appRoutes: Routes = [
     {path: '', component: CharactersComponent}
@@ -29,8 +29,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        CharactersComponent,
-        DetailComponent
+        CharactersComponent
     ],
     imports: [
         BrowserModule,
@@ -47,7 +46,8 @@ const appRoutes: Routes = [
         MdIconModule,
         FormsModule,
         RouterModule.forRoot(appRoutes),
-        MdTabsModule
+        MdTabsModule,
+        MdSelectModule
     ],
     providers: [DataService],
     bootstrap: [AppComponent]

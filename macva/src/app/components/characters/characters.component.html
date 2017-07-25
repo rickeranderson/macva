@@ -1,10 +1,6 @@
-
 <!--<md-grid-list cols="1" rowHeight="90px">-->
-    <!--<md-grid-tile><h2>Marvel Character List</h2></md-grid-tile>-->
+<!--<md-grid-tile><h2>Marvel Character List</h2></md-grid-tile>-->
 <!--</md-grid-list>-->
-
-
-
 
 
 <!-- Basic/Detail view switcher
@@ -26,18 +22,36 @@
 <div *ngIf=!isDetailEnabled()>
     <!-- Search -->
     <md-input-container id="search">
-        <form (submit)="search()">
+        <form (submit)="search()" >
             <input mdInput type="text" placeholder="Search" value="" [(ngModel)]="tempSearchTerm" name="tempSearchTerm">
         </form>
     </md-input-container>
-<!-- Basic View -->
-<md-grid-list cols="4" rowHeight="300px">
-    <div *ngFor="let character of characters">
+
+    <div id="order-by">
+        <md-select placeholder="Order By" value="name" [(ngModel)]="orderBy">
+            <md-option value="name" (click)="search()">
+                Name (0 - Z)
+            </md-option>
+            <md-option value="-name" (click)="search()">
+                Name (Z - 0)
+            </md-option>
+            <md-option value="modified" (click)="search()">
+                Date Modified (Long ago - Most recent)
+            </md-option>
+            <md-option value="-modified" (click)="search()">
+                Date Modified (Most recent - Long ago)
+            </md-option>
+        </md-select>
+    </div>
+
+    <!-- Basic View -->
+    <md-grid-list cols="4" rowHeight="300px">
+        <div *ngFor="let character of characters">
             <md-grid-tile>
                 <md-card class="basic-character-card" (click)="selectCharacter(character.id)">
 
                     <!--<div class="card-image">-->
-                        <img md-card-image src="{{character.thumbnailPath}}.{{character.thumbnailExt}}">
+                    <img md-card-image src="{{character.thumbnailPath}}.{{character.thumbnailExt}}">
                     <!--</div>-->
                     <md-card-header>
                         <md-card-title>{{character.name}}</md-card-title>
@@ -45,21 +59,21 @@
                     </md-card-header>
                 </md-card>
             </md-grid-tile>
-    </div>
-</md-grid-list>
-<md-spinner id="loader" *ngIf=getIsLoading()></md-spinner>
+        </div>
+    </md-grid-list>
+    <md-spinner id="loader" *ngIf=getIsLoading()></md-spinner>
 
-<!-- Pagintaion thing -->
-<md-grid-list cols="1" rowHeight="90px">
-    <md-grid-tile>
-        <div class="button" *ngIf=showGetPrev()>
-            <button md-raised-button (click)="getPrevCharacters()" >PREV {{this.limit}}</button>
-        </div>
-        <div class="button" *ngIf=showGetNext()>
-            <button md-raised-button (click)="getNextCharacters()">NEXT {{this.limit}}</button>
-        </div>
-    </md-grid-tile>
-</md-grid-list>
+    <!-- Pagintaion thing -->
+    <md-grid-list cols="1" rowHeight="90px">
+        <md-grid-tile>
+            <div class="button" *ngIf=showGetPrev()>
+                <button md-raised-button (click)="getPrevCharacters()">PREV {{this.limit}}</button>
+            </div>
+            <div class="button" *ngIf=showGetNext()>
+                <button md-raised-button (click)="getNextCharacters()">NEXT {{this.limit}}</button>
+            </div>
+        </md-grid-tile>
+    </md-grid-list>
 </div>
 
 
@@ -71,14 +85,16 @@
                 <md-card class="detail-character-card">
                     <md-card-actions id="back-bar">
                         <button md-button (click)=backToGrid() id="back-button">
-                            <svg fill="#FFFFFF" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                            <svg fill="#FFFFFF" height="36" viewBox="0 0 24 24" width="36"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                             </svg>
                         </button>
                     </md-card-actions>
                     <!--<div class="card-image">-->
-                    <img class="detail-image" src="{{selectedCharacter.thumbnail.path}}.{{selectedCharacter.thumbnail.extension}}">
+                    <img class="detail-image"
+                         src="{{selectedCharacter.thumbnail.path}}.{{selectedCharacter.thumbnail.extension}}">
                     <div class="character-detail-header">
                         {{selectedCharacter.name}}
                     </div>
@@ -86,15 +102,101 @@
                         {{selectedCharacter.description}}
                     </div>
                     <div class="character-detail-moreinfo">
-                        <button md-raised-button class="more-info-button" (click)=goToMoreDetails()>MORE INFORMATION</button>
+                        <button md-raised-button class="more-info-button" (click)=goToMoreDetails()>MORE INFORMATION
+                        </button>
                     </div>
                     <!--</div>-->
 
                     <md-tab-group class="detail-content">
-                        <md-tab label="Comics">Comic content</md-tab>
-                        <md-tab label="Stories">Story content</md-tab>
-                        <md-tab label="Events">Event content</md-tab>
-                        <md-tab label="Series">Series content</md-tab>
+                        <md-tab label="Comics">
+                            <div class="scrolling-tab">
+                                <div *ngIf=!checkComics()>
+                                    <md-grid-list cols="4" rowHeight="100px">
+                                        <div *ngFor="let comic of selectedCharacter.comics.items">
+                                            <md-grid-tile>
+                                                <md-card class="mini-detail-card">
+                                                    <md-card-header>
+                                                        <md-card-title>
+                                                            {{comic.name}}
+                                                        </md-card-title>
+                                                    </md-card-header>
+                                                </md-card>
+                                            </md-grid-tile>
+                                        </div>
+                                    </md-grid-list>
+                                </div>
+                                <div *ngIf=checkComics() class="none-found">
+                                    Sorry, there were no comics found.
+                                </div>
+                            </div>
+                        </md-tab>
+                        <md-tab label="Stories">
+                            <div class="scrolling-tab">
+                                <div *ngIf=!checkStories()>
+                                    <md-grid-list cols="4" rowHeight="100px">
+                                        <div *ngFor="let story of selectedCharacter.stories.items">
+                                            <md-grid-tile>
+                                                <md-card class="mini-detail-card">
+                                                    <md-card-header>
+                                                        <md-card-title>
+                                                            {{story.name}}
+                                                        </md-card-title>
+                                                    </md-card-header>
+                                                </md-card>
+                                            </md-grid-tile>
+                                        </div>
+                                    </md-grid-list>
+                                </div>
+                                <div *ngIf=checkStories() class="none-found">
+                                    Sorry, there were no stories found.
+                                </div>
+                            </div>
+                        </md-tab>
+                        <md-tab label="Events">
+                            <div class="scrolling-tab">
+                                <div *ngIf=!checkEvents()>
+                                    <md-grid-list cols="4" rowHeight="100px">
+                                        <div *ngFor="let event of selectedCharacter.events.items">
+                                            <md-grid-tile>
+                                                <md-card class="mini-detail-card">
+
+                                                    <md-card-header>
+                                                        <md-card-title>
+                                                            {{event.name}}
+                                                        </md-card-title>
+                                                    </md-card-header>
+                                                </md-card>
+                                            </md-grid-tile>
+                                        </div>
+                                    </md-grid-list>
+                                </div>
+                                <div *ngIf=checkEvents() class="none-found">
+                                    Sorry, there were no events found.
+                                </div>
+                            </div>
+                        </md-tab>
+                        <md-tab label="Series">
+                            <div class="scrolling-tab">
+                                <div *ngIf=!checkSeries()>
+                                    <md-grid-list cols="4" rowHeight="100px">
+                                        <div *ngFor="let series of selectedCharacter.series.items">
+                                            <md-grid-tile>
+                                                <md-card class="mini-detail-card">
+                                                    <md-card-header>
+                                                        <md-card-title>
+                                                            {{series.name}}
+                                                        </md-card-title>
+                                                    </md-card-header>
+                                                </md-card>
+                                            </md-grid-tile>
+                                        </div>
+                                    </md-grid-list>
+                                </div>
+                                <div *ngIf=checkSeries() class="none-found">
+                                    Sorry, there were no series found.
+                                </div>
+                            </div>
+                        </md-tab>
                     </md-tab-group>
 
                 </md-card>

@@ -19,6 +19,7 @@ export class CharactersComponent implements OnInit {
   searchTerm:string = '';
   tempSearchTerm:string = '';
   detailEnabled:boolean = false;
+  orderBy:string = 'name';
 
 
   showGetPrev(){
@@ -56,7 +57,7 @@ export class CharactersComponent implements OnInit {
     this.isLoading = true;
     this.characters = [];
     if(this.searchTerm.length == 0){
-      this.dataService.getCharactersByOffset(offset, this.limit).subscribe((chars) => {
+      this.dataService.getCharactersByOffset(offset, this.limit, this.orderBy).subscribe((chars) => {
         this.tempCharacters = chars.data.results;
         console.log(chars.data);
         this.characters = [];
@@ -72,7 +73,7 @@ export class CharactersComponent implements OnInit {
         this.isLoading = false;
       });
     } else {
-      this.dataService.getCharactersByOffsetSearch(offset, this.limit, this.searchTerm).subscribe((chars) => {
+      this.dataService.getCharactersByOffsetSearch(offset, this.limit, this.searchTerm, this.orderBy).subscribe((chars) => {
         this.tempCharacters = chars.data.results;
         console.log(chars.data);
         this.characters = [];
@@ -124,6 +125,11 @@ export class CharactersComponent implements OnInit {
 
   selectedID:number = 0;
   selectedCharacter:any;
+  numComics:number = 0;
+  numStories:number = 0;
+  numEvents:number = 0;
+  numSeries:number = 0;
+
 
   selectCharacter(id:number){
     this.isLoading = true;
@@ -137,10 +143,43 @@ export class CharactersComponent implements OnInit {
       if(this.selectedCharacter.description.length == 0){
         this.selectedCharacter.description = 'No description available';
       }
+      this.numComics = this.selectedCharacter.comics.items.length;
+      this.numStories = this.selectedCharacter.stories.items.length;
+      this.numEvents = this.selectedCharacter.events.items.length;
+      this.numSeries = this.selectedCharacter.series.items.length;
+
       console.log(this.selectedCharacter);
       this.isLoading = false;
       this.detailEnabled = true;
     });
+  }
+
+  checkComics(){
+    if(this.numComics == 0){
+      return true;
+    }
+    return false;
+  }
+
+  checkStories(){
+    if(this.numStories == 0){
+      return true;
+    }
+    return false;
+  }
+
+  checkEvents(){
+    if(this.numEvents == 0){
+      return true;
+    }
+    return false;
+  }
+
+  checkSeries(){
+    if(this.numSeries == 0){
+      return true;
+    }
+    return false;
   }
 
   goToMoreDetails(){
