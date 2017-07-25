@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'MACVA - Marvel API Character Viewer Application';
+  title = 'MARVEL FINDER';
 }

@@ -1,12 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="mat-typography">
   <div class="main-body">
-    <h1>
-      {{title}}
-    </h1>
+    <!--<h1>-->
+      <!--{{title}}-->
+    <!--</h1>-->
+    <div id="title-header">{{title}}</div>
   </div>
     <div id="content-container">
-      <app-characters></app-characters>
+      <router-outlet></router-outlet>
     </div>
   <div id="footer">
     <p>Data provided by <a href="http://marvel.com">Marvel</a>. © 2017 Marvel</p>

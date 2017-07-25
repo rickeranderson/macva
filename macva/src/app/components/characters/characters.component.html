@@ -1,24 +1,105 @@
 
-<md-grid-list cols="1" rowHeight="10:1">
-    <md-grid-tile><h2>Marvel Character List</h2></md-grid-tile>
-</md-grid-list>
-<md-grid-list cols="2" rowHeight="10:1">
-    <md-grid-tile><h3>ID</h3></md-grid-tile>
-    <md-grid-tile><h3>Name</h3></md-grid-tile>
+<!--<md-grid-list cols="1" rowHeight="90px">-->
+    <!--<md-grid-tile><h2>Marvel Character List</h2></md-grid-tile>-->
+<!--</md-grid-list>-->
 
+
+
+
+
+<!-- Basic/Detail view switcher
+<div class="view-switcher">
+    <div>
+        <svg fill="#000000" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+            <path class="view-switcher-buttons" d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 9h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4zm0-14v4h4V5h-4z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+        <svg fill="#000000" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+            <path class="view-switcher-buttons" d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+
+        <md-icon svgIcon="thumbs-up"></md-icon>
+    </div>
+</div>
+-->
+<div *ngIf=!isDetailEnabled()>
+    <!-- Search -->
+    <md-input-container id="search">
+        <form (submit)="search()">
+            <input mdInput type="text" placeholder="Search" value="" [(ngModel)]="tempSearchTerm" name="tempSearchTerm">
+        </form>
+    </md-input-container>
+<!-- Basic View -->
+<md-grid-list cols="4" rowHeight="300px">
     <div *ngFor="let character of characters">
-            <md-grid-tile>{{character.id}}</md-grid-tile>
-            <md-grid-tile>{{character.name}}</md-grid-tile>
+            <md-grid-tile>
+                <md-card class="basic-character-card" (click)="selectCharacter(character.id)">
+
+                    <!--<div class="card-image">-->
+                        <img md-card-image src="{{character.thumbnailPath}}.{{character.thumbnailExt}}">
+                    <!--</div>-->
+                    <md-card-header>
+                        <md-card-title>{{character.name}}</md-card-title>
+                        <!--<md-card-subtitle>ID: {{character.id}}</md-card-subtitle>-->
+                    </md-card-header>
+                </md-card>
+            </md-grid-tile>
     </div>
 </md-grid-list>
 <md-spinner id="loader" *ngIf=getIsLoading()></md-spinner>
-<md-grid-list cols="1" rowHeight="8:1">
+
+<!-- Pagintaion thing -->
+<md-grid-list cols="1" rowHeight="90px">
     <md-grid-tile>
         <div class="button" *ngIf=showGetPrev()>
-            <button md-raised-button (click)="getPrevCharacters()" >Previous 20</button>
+            <button md-raised-button (click)="getPrevCharacters()" >PREV {{this.limit}}</button>
         </div>
         <div class="button" *ngIf=showGetNext()>
-            <button md-raised-button (click)="getNextCharacters()">Next 20</button>
+            <button md-raised-button (click)="getNextCharacters()">NEXT {{this.limit}}</button>
         </div>
     </md-grid-tile>
 </md-grid-list>
+</div>
+
+
+<!-- Detail View -->
+<div *ngIf=isDetailEnabled()>
+    <md-grid-list cols="1" rowHeight="900px" class="detail-single-grid" style="">
+        <div>
+            <md-grid-tile>
+                <md-card class="detail-character-card">
+                    <md-card-actions id="back-bar">
+                        <button md-button (click)=backToGrid() id="back-button">
+                            <svg fill="#FFFFFF" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                            </svg>
+                        </button>
+                    </md-card-actions>
+                    <!--<div class="card-image">-->
+                    <img class="detail-image" src="{{selectedCharacter.thumbnail.path}}.{{selectedCharacter.thumbnail.extension}}">
+                    <div class="character-detail-header">
+                        {{selectedCharacter.name}}
+                    </div>
+                    <div class="character-detail-subheader">
+                        {{selectedCharacter.description}}
+                    </div>
+                    <div class="character-detail-moreinfo">
+                        <button md-raised-button class="more-info-button" (click)=goToMoreDetails()>MORE INFORMATION</button>
+                    </div>
+                    <!--</div>-->
+
+                    <md-tab-group class="detail-content">
+                        <md-tab label="Comics">Comic content</md-tab>
+                        <md-tab label="Stories">Story content</md-tab>
+                        <md-tab label="Events">Event content</md-tab>
+                        <md-tab label="Series">Series content</md-tab>
+                    </md-tab-group>
+
+                </md-card>
+            </md-grid-tile>
+        </div>
+    </md-grid-list>
+</div>
+

@@ -1,9 +1,11 @@
+/*#f11e22	rgb(241,30,34) red*/
+/*#000000	(0,0,0) black*/
+/*#504a4a	(80,74,74) grey*/
+/*#518cca	(81,140,202) blue*/
+/*#f78f3f	(247,143,63) orange*/
+
 .button {
     margin: 10px;
-}
-
-.character-row {
-    background-color: #CCCCCC;
 }
 
 #loader {
@@ -11,3 +13,184 @@
     height: 75px;
     width: 75px;
 }
+
+.basic-character-card {
+    width: 200px;
+}
+
+.detail-character-card {
+    width: 1024px;
+    height: 700px;
+}
+
+.mat-card-image {
+    max-height: 210px;
+    min-height: 210px;
+    overflow: hidden;
+}
+
+#search {
+    background: #ffffff;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    margin-left: 12px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+    width: 1042px;
+
+}
+
+.mat-card {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.mat-card:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.view-switcher {
+    display: inline-block;
+    width: 248px;
+    margin-left: 25px;
+    margin-top: -30px;
+    height: 77px;
+    vertical-align: text-top;
+    background-color: white;
+    font-size: 16px;
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.25);
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 36px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.mat-card-content, .mat-card-header .mat-card-title, .mat-card-subtitle {
+    font-size: 14px;
+}
+
+.mat-card-actions, .mat-card-content, .mat-card-subtitle, .mat-card-title {
+    display: block;
+    margin-bottom: 0px;
+}
+
+.detail-image{
+    max-height: 348px;
+    max-width: 348px;
+    margin-left: 10px;
+    margin-top: 30px;
+}
+
+#back-bar {
+    background-color: #504a4a;
+    color: white;
+    margin-top: -24px;
+    width: 1072.75px;
+    margin-left: -24px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 48px;
+}
+
+#back-button {
+    height: 48px;
+}
+
+.character-detail-header {
+    font-size: 40px;
+    font-weight: 600;
+    /* background-color: aqua; */
+    display: inline;
+    position: absolute;
+    /* height: 318px; */
+    margin-top: 30px;
+    padding-top: 30px;
+    /* width: 600px; */
+    padding-left: 30px;
+    padding-right: 30px;
+    line-height: 1.2;
+}
+
+.character-detail-subheader {
+    font-size: 18px;
+    font-weight: 400;
+    display: inline;
+    position: absolute;
+    margin-top: 140px;
+    padding: 30px;
+    /* padding-left: 30px; */
+}
+
+.character-detail-moreinfo {
+    font-size: 18px;
+    font-weight: 400;
+    display: inline;
+    position: absolute;
+    margin-top: 260px;
+    padding: 30px;
+    width: 630px;
+}
+
+.detail-single-grid {
+    margin-top: -60px; margin-bottom: -60px;
+}
+
+.more-info-button {
+    width: 200px;
+    height: 40px;
+    margin-left: 215px;
+    background-color: #518cca;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.more-info-button:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.detail-content {
+    width: calc(100% - 25px);
+    margin-left: 10px;
+}
+/*.view-switcher-buttons {*/
+    /*fill: blue;*/
+/*}*/
+
+/*#grid-view-button {*/
+    /*fill: blue;*/
+/*}*/
+
+/*#list-view-button {*/
+
+/*}*/
