@@ -19,6 +19,7 @@ import {
     MdTabsModule,
     MdSelectModule
 } from '@angular/material';
+
 import {CharactersComponent} from './components/characters/characters.component';
 import {DataService} from './services/data.service';
 

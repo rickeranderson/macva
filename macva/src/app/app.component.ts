@@ -7,4 +7,6 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
     title = 'MARVEL FINDER';
+
+    date = new Date();
 }
